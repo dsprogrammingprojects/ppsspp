@@ -934,12 +934,10 @@ static typename std::unordered_map<Key, Value>::const_iterator LookupWildcard(co
 		return alias;
 
 	if (!ignoreAddress) {
-		// No clut.
+		// Address Only.
 		key.cachekey = cachekey & ~0xFFFFFFFFULL;
 		key.hash = 0;
-		alias = map.find(key);
-		if (alias != map.end())
-			return alias;
+		return map.find(key);
 	}
 }
 
