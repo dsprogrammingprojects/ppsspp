@@ -935,17 +935,12 @@ static typename std::unordered_map<Key, Value>::const_iterator LookupWildcard(co
 
 	if (!ignoreAddress) {
 		// No clut.
-		key.cachekey = 0;
-		key.hash = hash;
+		key.cachekey = cachekey & ~0xFFFFFFFFULL;
+		key.hash = 0;
 		alias = map.find(key);
 		if (alias != map.end())
 			return alias;
 	}
-
-	// Address only.
-	key.cachekey = 0;
-	key.hash = 0;
-	return map.find(key);
 }
 
 bool TextureReplacer::FindFiltering(u64 cachekey, u32 hash, TextureFiltering *forceFiltering) {
